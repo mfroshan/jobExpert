@@ -78,7 +78,7 @@
                     while($jobResult = $job->fetch_assoc()){
                 ?>
                   <tr>
-                    <th scope="row"><?php echo $i; ?></th>
+                    <th scope="row"><?php echo $i ?></th>
                     <td><?php echo $jobResult['job_name'] ?></td>
                     <td><?php echo $jobResult['cat_name'] ?></td>
                     <?php if($jobResult['jstatus'] == 0 ){ ?>
@@ -97,7 +97,11 @@
                                                 class="btn btn-danger">Close Registration</button></td>
                                                 <?php } ?>
                   </tr>
-                  <?php  } ?>
+                  <?php  
+                $i=$i+1;  
+                } 
+                  
+                  ?>
                 </tbody>
               </table>
               <!-- End Table with stripped rows -->
@@ -154,6 +158,15 @@
 
     } 
   </script>
+  <script src="./assets/js/ckeditor.js"></script>
+  <script>
+    ClassicEditor
+        .create( document.querySelector( '#editor' ) )
+        .catch( error => {
+            console.error( error );
+        } );
+  
+ </script>
   <script>
   const changeStatus = (sts,id) => {
         $.ajax({
@@ -173,12 +186,13 @@
 </html>
 <?php  
       if(isset($_POST['add'])){
-        if(!empty($_POST['jobname']) && !empty($_POST['des'])){
+        if(!empty($_POST['jobname']) && !empty($_POST['editor'])){
           
           $jobname = $_POST['jobname'];
-          $des = $_POST['des'];
+          $des = $_POST['editor'];
           $cat_name = $_POST['catname'];
           $cat_value = $_POST['selectCategory'];
+
 
           $insertCategory = "insert into category (cat_name) values('$cat_name')";
           $insertJob = "insert into jobs(job_name,cat_id,Cid,jdes) values('$jobname',$cat_value,$cid,'$des')";
@@ -188,10 +202,13 @@
                   $s = $conn->query("select cat_id from category where cat_name='$cat_name'");
                   $ret = $s->fetch_assoc();
                   $cat_id = $ret['cat_id'];
+            
                   $conn->query("insert into jobs(job_name,cat_id,Cid,jdes) values('$jobname',$cat_id,$cid,'$des')");
               }else{
-                      $conn->query($insertJob);
+                   $conn->query($insertJob);
               }
+        }else{
+          echo '<script>alert("Empty")</script>';
         }
         header('Location: company-posted-jobs.php');
       }

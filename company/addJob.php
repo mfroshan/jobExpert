@@ -45,8 +45,11 @@
                                   </div>
                                   <div class="form-group">
                                     <label for="exampleFormControlTextarea1">Job Description</label>
-                                    <textarea name="des" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+        
+                                    <textarea name="editor" class="form-control" id="editor" rows="3"
+                                    ></textarea>
                                   </div>
+                                  
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

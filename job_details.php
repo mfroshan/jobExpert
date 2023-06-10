@@ -3,11 +3,10 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-         <title>Job board HTML-5 Template </title>
+         <title>Job Details</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="manifest" href="site.webmanifest">
-		<link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+       
 
 		<!-- CSS here -->
             <link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -26,67 +25,12 @@
 
    <body>
     <!-- Preloader Start -->
-    <div id="preloader-active">
-        <div class="preloader d-flex align-items-center justify-content-center">
-            <div class="preloader-inner position-relative">
-                <div class="preloader-circle"></div>
-                <div class="preloader-img pere-text">
-                    <img src="assets/img/logo/logo.png" alt="">
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Preloader Start -->
-    <header>
-        <!-- Header Start -->
-       <div class="header-area header-transparrent">
-           <div class="headder-top header-sticky">
-                <div class="container">
-                    <div class="row align-items-center">
-                        <div class="col-lg-3 col-md-2">
-                            <!-- Logo -->
-                            <div class="logo">
-                                <a href="index.html"><img src="assets/img/logo/logo.png" alt=""></a>
-                            </div>  
-                        </div>
-                        <div class="col-lg-9 col-md-9">
-                            <div class="menu-wrapper">
-                                <!-- Main-menu -->
-                                <div class="main-menu">
-                                    <nav class="d-none d-lg-block">
-                                        <ul id="navigation">
-                                            <li><a href="index.html">Home</a></li>
-                                            <li><a href="job_listing.html">Find a Jobs </a></li>
-                                            <li><a href="about.html">About</a></li>
-                                            <li><a href="#">Page</a>
-                                                <ul class="submenu">
-                                                    <li><a href="blog.html">Blog</a></li>
-                                                    <li><a href="single-blog.html">Blog Details</a></li>
-                                                    <li><a href="elements.html">Elements</a></li>
-                                                    <li><a href="job_details.html">job Details</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="contact.html">Contact</a></li>
-                                        </ul>
-                                    </nav>
-                                </div>          
-                                <!-- Header-btn -->
-                                <div class="header-btn d-none f-right d-lg-block">
-                                    <a href="#" class="btn head-btn1">Register</a>
-                                    <a href="#" class="btn head-btn2">Login</a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Mobile Menu -->
-                        <div class="col-12">
-                            <div class="mobile_menu d-block d-lg-none"></div>
-                        </div>
-                    </div>
-                </div>
-           </div>
-       </div>
-        <!-- Header End -->
-    </header>
+    <?php 
+    include('db/connection.php');
+    include('includes/navbar.php');
+    
+    ?>
+    
     <main>
 
         <!-- Hero Area Start-->
@@ -96,13 +40,24 @@
                 <div class="row">
                     <div class="col-xl-12">
                         <div class="hero-cap text-center">
-                            <h2>UI/UX Designer</h2>
+                            <h2>Job Description</h2>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        
         </div>
+        <?php  
+                $id = $_GET['id'];
+                $jobdet = $conn->query("
+                select * from jobs j 
+                inner join category c on j.cat_id = c.cat_id
+                inner join company cm on j.Cid = cm.Cid
+                where job_id = '$id'
+                ");
+                $jobDetails = $jobdet->fetch_assoc();
+        ?>
         <!-- Hero Area End -->
         <!-- job post company Start -->
         <div class="job-post-company pt-120 pb-120">
@@ -114,16 +69,18 @@
                         <div class="single-job-items mb-50">
                             <div class="job-items">
                                 <div class="company-img company-img-details">
-                                    <a href="#"><img src="assets/img/icon/job-list1.png" alt=""></a>
+                                    <a href="#"><img 
+                                    style="width: 85px;height:85px;"
+                                    src="login/images/<?php  echo $jobDetails['cImage'] ?>" alt=""></a>
                                 </div>
                                 <div class="job-tittle">
                                     <a href="#">
-                                        <h4>Digital Marketer</h4>
+                                        <h4><?php  echo $jobDetails['job_name'] ?></h4>
                                     </a>
                                     <ul>
-                                        <li>Creative Agency</li>
-                                        <li><i class="fas fa-map-marker-alt"></i>Athens, Greece</li>
-                                        <li>$3500 - $4000</li>
+                                        <li><?php  echo $jobDetails['cName'] ?></li>
+                                        <!-- <li><i class="fas fa-map-marker-alt"></i>Athens, Greece</li>
+                                        <li>$3500 - $4000</li> -->
                                     </ul>
                                 </div>
                             </div>
@@ -136,33 +93,9 @@
                                 <div class="small-section-tittle">
                                     <h4>Job Description</h4>
                                 </div>
-                                <p>It is a long established fact that a reader will beff distracted by vbthe creadable content of a page when looking at its layout. The pointf of using Lorem Ipsum is that it has ahf mcore or-lgess normal distribution of letters, as opposed to using, Content here content here making it look like readable.</p>
-                            </div>
-                            <div class="post-details2  mb-50">
-                                 <!-- Small Section Tittle -->
                                 <div class="small-section-tittle">
-                                    <h4>Required Knowledge, Skills, and Abilities</h4>
+                                <p><?php  echo $jobDetails['jdes'] ?></p>
                                 </div>
-                               <ul>
-                                   <li>System Software Development</li>
-                                   <li>Mobile Applicationin iOS/Android/Tizen or other platform</li>
-                                   <li>Research and code , libraries, APIs and frameworks</li>
-                                   <li>Strong knowledge on software development life cycle</li>
-                                   <li>Strong problem solving and debugging skills</li>
-                               </ul>
-                            </div>
-                            <div class="post-details2  mb-50">
-                                 <!-- Small Section Tittle -->
-                                <div class="small-section-tittle">
-                                    <h4>Education + Experience</h4>
-                                </div>
-                               <ul>
-                                   <li>3 or more years of professional design experience</li>
-                                   <li>Direct response email experience</li>
-                                   <li>Ecommerce website design experience</li>
-                                   <li>Familiarity with mobile and web apps preferred</li>
-                                   <li>Experience using Invision a plus</li>
-                               </ul>
                             </div>
                         </div>
 
@@ -175,168 +108,103 @@
                                <h4>Job Overview</h4>
                            </div>
                           <ul>
-                              <li>Posted date : <span>12 Aug 2019</span></li>
-                              <li>Location : <span>New York</span></li>
+                              <li>Posted date : <span><?php  echo $jobDetails['posted_t_d'] ?></span></li>
+                              <!-- <li>Location : <span>New York</span></li>
                               <li>Vacancy : <span>02</span></li>
                               <li>Job nature : <span>Full time</span></li>
-                              <li>Salary :  <span>$7,800 yearly</span></li>
-                              <li>Application date : <span>12 Sep 2020</span></li>
+                              <li>Salary :  <span>$7,800 yearly</span></li> -->
+                              <li>Registration: 
+                              <?php if($jobDetails['jstatus'] == 0) {?> 
+                                <span class="badge badge-success">open</span></li>
+                              <?php } ?>
+                              <?php if($jobDetails['jstatus'] == 1) {?> 
+                                <span class="badge badge-danger">closed</span></li>
+                              <?php } ?>
                           </ul>
+                          
                          <div class="apply-btn2">
-                            <a href="#" class="btn">Apply Now</a>
+                         <?php 
+                         if($jobDetails['jstatus'] == 0) {?>
+                    
+                    <button type="button" class="btn" data-toggle="modal" data-target="#exampleModalCenter">
+                    Apply Now
+                    </button>
+
+                    
                          </div>
+                         <?php } ?>
                        </div>
                         <div class="post-details4  mb-50">
                             <!-- Small Section Tittle -->
                            <div class="small-section-tittle">
-                               <h4>Company Information</h4>
+                               <h4><?php echo $jobDetails['cName'] ?></h4>
                            </div>
-                              <span>Colorlib</span>
-                              <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
+                              
+                              <p><?php echo $jobDetails['Cdes'] ?></p>
                             <ul>
-                                <li>Name: <span>Colorlib </span></li>
-                                <li>Web : <span> colorlib.com</span></li>
-                                <li>Email: <span>carrier.colorlib@gmail.com</span></li>
+                                <li>Name: <span><?php echo $jobDetails['cName'] ?> </span></li>
+                                <!-- <li>Web : <span> colorlib.com</span></li> -->
+                                <li>Email: <span><?php echo $jobDetails['Cusername'] ?></span></li>
                             </ul>
                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- job post company End -->
+        <?php 
+    include('includes/footer.php');
+
+    ?>
+     <form method="post"  enctype="multipart/form-data">
+            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Check Your Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+               
+                    <div class="form-group row">
+                        <label for="staticEmail" class="col-sm-2 col-form-label">First Name</label>
+                        <div class="col-sm-10">
+                        <input type="text" class="form-control" id="staticEmail" value="<?php echo $result['fname']?>" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="staticEmail" class="col-sm-2 col-form-label">Last Name</label>
+                        <div class="col-sm-10">
+                        <input type="text" class="form-control" id="staticEmail" value="<?php echo $result['lname']?>" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputPassword" class="col-sm-2 col-form-label">Email</label>
+                        <div class="col-sm-10">
+                        <input type="text" class="form-control" id="inputPassword" placeholder="<?php echo $result['jusername']?>">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="resumeR" class="col-sm-2 col-form-label">Upload Resume</label>
+                        <div class="col-sm-10">
+                        <input type="file" id="resume" name="pdf_file" accept=".pdf" required>
+                        </div> 
+                    </div>
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" id="apply" name="apply">Apply</button>
+                    
+                </div>
+                </div>
+            </div>
+            </div>
+            </form>
 
     </main>
-    <footer>
-        <!-- Footer Start-->
-        <div class="footer-area footer-bg footer-padding">
-            <div class="container">
-                <div class="row d-flex justify-content-between">
-                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6">
-                       <div class="single-footer-caption mb-50">
-                         <div class="single-footer-caption mb-30">
-                             <div class="footer-tittle">
-                                 <h4>About Us</h4>
-                                 <div class="footer-pera">
-                                     <p>Heaven frucvitful doesn't cover lesser dvsays appear creeping seasons so behold.</p>
-                                </div>
-                             </div>
-                         </div>
-
-                       </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-5">
-                        <div class="single-footer-caption mb-50">
-                            <div class="footer-tittle">
-                                <h4>Contact Info</h4>
-                                <ul>
-                                    <li>
-                                    <p>Address :Your address goes
-                                        here, your demo address.</p>
-                                    </li>
-                                    <li><a href="#">Phone : +8880 44338899</a></li>
-                                    <li><a href="#">Email : info@colorlib.com</a></li>
-                                </ul>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-5">
-                        <div class="single-footer-caption mb-50">
-                            <div class="footer-tittle">
-                                <h4>Important Link</h4>
-                                <ul>
-                                    <li><a href="#"> View Project</a></li>
-                                    <li><a href="#">Contact Us</a></li>
-                                    <li><a href="#">Testimonial</a></li>
-                                    <li><a href="#">Proparties</a></li>
-                                    <li><a href="#">Support</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-5">
-                        <div class="single-footer-caption mb-50">
-                            <div class="footer-tittle">
-                                <h4>Newsletter</h4>
-                                <div class="footer-pera footer-pera2">
-                                 <p>Heaven fruitful doesn't over lesser in days. Appear creeping.</p>
-                             </div>
-                             <!-- Form -->
-                             <div class="footer-form" >
-                                 <div id="mc_embed_signup">
-                                     <form target="_blank" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
-                                     method="get" class="subscribe_form relative mail_part">
-                                         <input type="email" name="email" id="newsletter-form-email" placeholder="Email Address"
-                                         class="placeholder hide-on-focus" onfocus="this.placeholder = ''"
-                                         onblur="this.placeholder = ' Email Address '">
-                                         <div class="form-icon">
-                                             <button type="submit" name="submit" id="newsletter-submit"
-                                             class="email_icon newsletter-submit button-contactForm"><img src="assets/img/icon/form.png" alt=""></button>
-                                         </div>
-                                         <div class="mt-10 info"></div>
-                                     </form>
-                                 </div>
-                             </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-               <!--  -->
-               <div class="row footer-wejed justify-content-between">
-                       <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6">
-                          <!-- logo -->
-                          <div class="footer-logo mb-20">
-                            <a href="index.html"><img src="assets/img/logo/logo2_footer.png" alt=""></a>
-                          </div>
-                       </div>
-                       <div class="col-xl-3 col-lg-3 col-md-4 col-sm-5">
-                        <div class="footer-tittle-bottom">
-                            <span>5000+</span>
-                            <p>Talented Hunter</p>
-                        </div>
-                       </div>
-                       <div class="col-xl-3 col-lg-3 col-md-4 col-sm-5">
-                            <div class="footer-tittle-bottom">
-                                <span>451</span>
-                                <p>Talented Hunter</p>
-                            </div>
-                       </div>
-                       <div class="col-xl-3 col-lg-3 col-md-4 col-sm-5">
-                            <!-- Footer Bottom Tittle -->
-                            <div class="footer-tittle-bottom">
-                                <span>568</span>
-                                <p>Talented Hunter</p>
-                            </div>
-                       </div>
-               </div>
-            </div>
-        </div>
-        <!-- footer-bottom area -->
-        <div class="footer-bottom-area footer-bg">
-            <div class="container">
-                <div class="footer-border">
-                     <div class="row d-flex justify-content-between align-items-center">
-                         <div class="col-xl-10 col-lg-10 ">
-                             <div class="footer-copy-right">
-                                 <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
-                             </div>
-                         </div>
-                         <div class="col-xl-2 col-lg-2">
-                             <div class="footer-social f-right">
-                                 <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                 <a href="#"><i class="fab fa-twitter"></i></a>
-                                 <a href="#"><i class="fas fa-globe"></i></a>
-                                 <a href="#"><i class="fab fa-behance"></i></a>
-                             </div>
-                         </div>
-                     </div>
-                </div>
-            </div>
-        </div>
-        <!-- Footer End-->
-    </footer>
+    
 
 	<!-- JS here -->
 	
@@ -374,6 +242,51 @@
 		<!-- Jquery Plugins, main Jquery -->	
         <script src="./assets/js/plugins.js"></script>
         <script src="./assets/js/main.js"></script>
-        
     </body>
 </html>
+<?php  
+        function pdfConvert($file){
+
+          $file_name = $file['name'];
+          $file_tmp = $file['tmp_name'];
+ 
+          move_uploaded_file($file_tmp,"login/images/".$file_name);
+
+          return $file_name;
+        }
+
+        if(isset($_POST['apply'])){
+
+            $cv = pdfConvert($_FILES['pdf_file']);
+
+            if(!empty($cv)){
+            echo("<script>console.log('PHP: " . $cv . "');</script>");
+            $jsID = $result['jsID'];
+            
+            $checkMaster = "select jobm_id from job_apply_m where jsID=$jsID";
+            $check = $conn->query($checkMaster);
+            $row_cnt = $check->num_rows;
+
+            $insertMaster = "insert into job_apply_m (jsID) values('$jsID')";
+
+            echo("<script>console.log('cnt: " . $row_cnt . "');</script>");
+
+            if($row_cnt == 0){
+                $conn->query($insertMaster);
+                $check = $conn->query($checkMaster);
+                $aply_m = $check->fetch_assoc();
+                $j = $aply_m['jobm_id'];
+                if(isset($j)){
+                    $conn->query("insert into job_apply_c (job_id,jobm_id,cv) values($id,$j,'$cv')");
+                }
+            }else{
+                $rs = $check->fetch_assoc();
+                $mid = $rs['jobm_id'];
+                $conn->query("insert into job_apply_c (job_id,jobm_id,cv) values($id,$mid,'$cv')");
+            }
+        }else{
+            echo "File Format!";
+        }
+        header("Location: job_details.php?id=$id");
+    }   
+?>

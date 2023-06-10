@@ -18,6 +18,7 @@ function imageConvert($file){
 								return $new_img_name;
                         }else{
                             echo "Please upload an image file - jpeg, png, jpg";
+
                         }
                     }else{
                         echo "Please upload an image file - jpeg, png, jpg";
