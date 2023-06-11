@@ -111,10 +111,17 @@
                                         <div class="company-img">
                                             <a href="#"><img style="width:85px;height:85px;" src="login/images/<?php echo $jobsResult['cImage']?>" alt=""></a>
                                         </div>
-                                        <div class="job-tittle job-tittle2">
+                                        <div class="job-tittle job-tittle2">  
+                                            <?php if(isset($_SESSION['susername'])){ ?>
+
                                             <a href="job_details.php?id=<?php echo $jobsResult['job_id'] ?>">
                                                 <h4><?php echo $jobsResult['job_name'] ?></h4>
                                             </a>
+                                            <?php }else{ ?>
+                                                <a href="login/login.php">
+                                                <h4><?php echo $jobsResult['job_name'] ?></h4>
+                                            </a>                                     
+                                        <?php } ?>
                                             <ul>
                                                 <li><i class="fas fa-building"></i><?php echo $jobsResult['cName']; ?></li>
                                             </ul>

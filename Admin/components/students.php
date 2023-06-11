@@ -90,14 +90,15 @@
                                                 <?php } ?>
 
                                             <?php if($result['status'] == 1 ){ ?>
-                                            <td><button 
-                                            name="a"
-                                            onclick="changeStatus(0,'c',<?php echo $result['status'];?>)"
-                                            class="btn btn-success">Activate</button></td>
+                                            <td>
+                                            <a href="./update.php?id=<?php echo $result['jsID']?>&sts=0&type=s">
+                                            <button 
+                                            class="btn btn-success">Activate</button></a></td>
                                             <?php }else{ ?>
-                                                <td><button type="submit" name="d" 
-                                                onclick="changeStatus(1,'c',<?php echo $result['status'];?>)"
-                                                class="btn btn-danger">Deactivate</button></td>
+                                                <td>
+                                                <a href="./update.php?id=<?php echo $result['jsID']?>&sts=1&type=s">
+                                                <button type="button"
+                                                class="btn btn-danger">Deactivate</button></a></td>
                                                 <?php } ?>
                                         </tr>
                                         <?php 
