@@ -113,7 +113,7 @@
                               <li>Vacancy : <span>02</span></li>
                               <li>Job nature : <span>Full time</span></li>
                               <li>Salary :  <span>$7,800 yearly</span></li> -->
-                              <li>Registration: 
+                              <li>Submit Application: 
                               <?php if($jobDetails['jstatus'] == 0) {?> 
                                 <span class="badge badge-success">open</span></li>
                               <?php } ?>
@@ -124,13 +124,25 @@
                           
                          <div class="apply-btn2">
                          <?php 
-                         if($jobDetails['jstatus'] == 0) {?>
-                    
-                    <button type="button" class="btn" data-toggle="modal" data-target="#exampleModalCenter">
+                    if($jobDetails['jstatus'] == 0) {
+                        $jsid = $result['jsID'];
+                        $applyCheck = $conn->query("
+                        select jsID from job_apply_m jm 
+                        inner join job_apply_c jc on jm.jobm_id = jc.jobm_id
+                        where jm.jsID=$jsid AND jc.job_id=$id
+                        ");
+
+                        $cnt = $applyCheck->num_rows;
+                        if( $cnt > 0){
+                    ?>      
+
+                    <p class="text-primary">Resume Submited</p>
+                        
+                    <?php } else { ?>
+                        <button type="button" class="btn" data-toggle="modal" data-target="#exampleModalCenter">
                     Apply Now
                     </button>
-
-                    
+                    <?php } ?>
                          </div>
                          <?php } ?>
                        </div>
@@ -191,12 +203,10 @@
                         <input type="file" id="resume" name="pdf_file" accept=".pdf" required>
                         </div> 
                     </div>
-                    
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary" id="apply" name="apply">Apply</button>
-                    
                 </div>
                 </div>
             </div>
@@ -260,7 +270,6 @@
             $cv = pdfConvert($_FILES['pdf_file']);
 
             if(!empty($cv)){
-            echo("<script>console.log('PHP: " . $cv . "');</script>");
             $jsID = $result['jsID'];
             
             $checkMaster = "select jobm_id from job_apply_m where jsID=$jsID";
@@ -285,7 +294,7 @@
                 $conn->query("insert into job_apply_c (job_id,jobm_id,cv) values($id,$mid,'$cv')");
             }
         }else{
-            echo "File Format!";
+            echo "something went Wrong!";
         }
         header("Location: job_details.php?id=$id");
     }   

@@ -82,9 +82,9 @@
                     <td><?php echo $jobResult['job_name'] ?></td>
                     <td><?php echo $jobResult['cat_name'] ?></td>
                     <?php if($jobResult['jstatus'] == 0 ){ ?>
-                    <td style="color:green;">Open</td>
+                    <td style="color:black;"><p  >Open</p></td>
                     <?php }else{ ?>
-                    <td style="color: red;">Closed</td>
+                    <td><span class="badge badge-danger">Closed</span></td>
                       <?php } ?>
                       <?php if($jobResult['jstatus'] == 1 ){ ?>
                                             <td><button 

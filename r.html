@@ -113,3 +113,22 @@
                 </div>
             </div>
         </div>
+
+        <?php 
+                        $jsid = $result['jsID'];
+                        $applyCheck = $conn->query("
+                        select jsID from job_apply_m jm 
+                        inner join job_apply_c jc on jm.jobm_id = jc.jobm_id
+                        where jm.jsID=$jsid AND jc.job_id=$id
+                        ");
+
+                        $cnt = $applyCheck->num_rows;
+                        echo "<script>alert('".$cnt."')</script>";
+                        if( $cnt > 0){
+                    ?>      
+                    <div class="btn btn-primary">
+                            Applied
+                    </div>
+                    <?php } else { ?>
+                        <button type="submit" class="btn btn-primary" id="apply" name="apply">Apply</button>
+                    <?php } ?>

@@ -40,36 +40,14 @@
                         <div class="row">
                             <div class="col-xl-6 col-lg-9 col-md-10">
                                 <div class="hero__caption">
-                                    <h1>Find the most exciting startup jobs</h1>
+                                    <h1>Find the most exciting jobs</h1>
                                 </div>
                             </div>
                         </div>
                         <!-- Search Box -->
                         <div class="row">
                             <div class="col-xl-8">
-                                <!-- form -->
-                                <form action="#" class="search-box">
-                                    <div class="input-form">
-                                        <input type="text" placeholder="Job Tittle or keyword">
-                                    </div>
-                                    <div class="select-form">
-                                        <div class="select-itms">
-                                            <select name="select" id="select1">
-                                                <option value="">Location BD</option>
-                                                <option value="">Location PK</option>
-                                                <option value="">Location US</option>
-                                                <option value="">Location UK</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="search-form">
-                                        <?php if(isset($_SESSION['susername'])){?>
-                                        <a href="#">Find job</a>
-                                        <?php }else{?>
-                                          <a href="login/login.php">Find job</a>
-                                       <?php } ?>
-                                    </div>	
-                                </form>	
+                                <!--- --->
                             </div>
                         </div>
                     </div>

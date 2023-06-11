@@ -18,8 +18,12 @@
                         <div class="col-lg-3 col-md-2">
                             <!-- Logo -->
                             <div class="logo">
-                                <a href="index.html"><img src="assets/img/logo/logo.png" alt=""></a>
-                            </div>  
+                            <!-- <h1 class="display-4">JOBEXPERT</h1> -->
+                        <h3>
+                        <span class="badge badge-secondary"><a href="index.html">JOBEXPERT</a>
+                        </span> 
+                        </h3>        
+                    </div>  
                         </div>
                         <div class="col-lg-9 col-md-9">
                             <div class="menu-wrapper">
@@ -28,9 +32,9 @@
                                     <nav class="d-none d-lg-block">
                                         <ul id="navigation">
                                             <li><a href="../jobExpert/index.php">Home</a></li>
-                                            <li><a href="../jobExpert/job_listing.php">Find a Jobs </a></li>
+                                            <li><a href="../jobExpert/job_listing.php">Find a Job </a></li>
                                             <!-- <li><a href="../jobExpert/about.php">About</a></li> -->
-                                            <li><a href="../jobExpert/contact.php">Contact</a></li>
+                                            <!-- <li><a href="../jobExpert/contact.php">Contact</a></li> -->
                                         </ul>
                                     </nav>
                                 </div>          

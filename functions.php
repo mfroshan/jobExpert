@@ -21,12 +21,12 @@ function getjobs(){
     $j = $conn->query(
         "select * from jobs j 
         inner join category c on j.cat_id = c.cat_id
-        inner join company cm on j.Cid = cm.Cid ");
+        inner join company cm on j.Cid = cm.Cid where j.jstatus=0");
         while($row = $j->fetch_assoc()){
             $getJob[] = $row;
          }
          return $getJob;  
-         echo("<script>console.log('PHP: " . $getJob . "');</script>");              
+             
 }
 
 
@@ -34,11 +34,11 @@ function getjobsbycategory($category){
     $conn = connect();
     $res = $conn->query("select * from jobs j 
     inner join category c on j.cat_id = c.cat_id
-    inner join company cm on j.Cid = cm.Cid where c.cat_id='$category'");
+    inner join company cm on j.Cid = cm.Cid where c.cat_id='$category' and j.jstatus=0");
     while($row = $res->fetch_assoc()){
         $getJob[] = $row;
     }
-    return $getJob; 
+       return $getJob;       
  }
 
 ?>
