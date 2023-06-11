@@ -6,7 +6,7 @@
   }
 ?>
 <?php include_once "header.php"; ?>
-<body>
+<body>9
   <div class="wrapper">
     <section class="chat-area">
       <header>
@@ -19,7 +19,7 @@
             header("location: users.php");
           }
         ?>
-        <a href="../chat/" class="back-icon"><i class="fas fa-arrow-left"></i></a>
+        <!-- <a href="../chat/" class="back-icon"><i class="fas fa-arrow-left"></i></a> -->
         <img src="../login/images/<?php echo $row['image']; ?>" alt="">
         <div class="details">
           <span><?php echo $row['fname']. " " . $row['lname'] ?></span>
