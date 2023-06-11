@@ -43,10 +43,12 @@
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Jobs Posted</h1>
+      <h1>Applicants Details</h1>
+      
     </div><!-- End Page Title -->
-
+    
     <section class="section">
+
       <div class="row">
         <div class="col-lg-12">
 
@@ -54,54 +56,73 @@
             <div class="card-body">
               <!----- ------>
               <i class="fa fa-plus" aria-hidden="true" />
-              <?php include('addJob.php'); ?>
+              <?php include('viewstudents.php'); ?>
 
               <!-- Table with stripped rows -->
               <table class="table datatable">
                 <thead>
                   <tr>
-                    <th scope="col">No</th>
-                    <th scope="col">Job Name</th>
-                    <th scope="col">Job Type</th>
-                    <th scope="col">Registration</th>
+                    <th scope="col">SI.NO</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Number</th>
+                    <th scope="col">Mail Address</th>
+                    <th scope="col">Resume</th>
+                    <th scope="col">Application Status</th>
                     <th scope="col"></th>
+                    
+
                   </tr>
                 </thead>
                 <tbody>
                 <?php 
                 $cid = $result['Cid'];
+
+                $job_id = $_GET['id'];
+                
                 $i=1;
+
                     $job = $conn->query(
-                    "select * from jobs j 
-                    inner join category c on j.cat_id = c.cat_id                    
-                    where Cid='$cid'");
-                    while($jobResult = $job->fetch_assoc()){
+                    "select *
+                    from job_apply_m jm 
+                    inner join job_apply_c jc  on jm.jobm_id = jc.jobm_id
+                    inner join jobseeker js on jm.jsID = js.jsID  
+                    inner join jobs jb on jc.job_id = jb.job_id
+                    where jb.Cid=$cid AND jc.job_id=$job_id");
+            
+                    while($Applicant = $job->fetch_assoc()){
+                        
                 ?>
                   <tr>
-                    <th scope="row"><?php echo $i ?></th>
-                    <td><?php echo $jobResult['job_name'] ?></td>
-                    <td><?php echo $jobResult['cat_name'] ?></td>
-                    <?php if($jobResult['jstatus'] == 0 ){ ?>
-                    <td style="color:black;"><p  >Open</p></td>
-                    <?php }else{ ?>
-                    <td><span class="badge badge-danger">Closed</span></td>
-                      <?php } ?>
-                      <?php if($jobResult['jstatus'] == 1 ){ ?>
-                                            <td><button 
-                                            name="a"
-                                            onclick="changeStatus(1,<?php echo $jobResult['job_id'] ;?>)"
-                                            class="btn btn-success">Open Registration</button></td>
-                                            <?php }else{ ?>
-                                                <td><button type="submit" name="d" 
-                                                onclick="changeStatus(0,<?php echo $jobResult['job_id']; ?>)"
-                                                class="btn btn-danger">Close Registration</button></td>
-                                                <?php } ?>
+                    <td scope="row"><?php echo $i ?></td>
+                    <td><?php echo $Applicant['fname']." ".$Applicant['lname']; ?></td>
+                    <td><?php echo $Applicant['phonenumber'] ?></td>
+                    <td><?php echo $Applicant['jusername']; ?></td>
+                    <td>
+                    <button  
+                    data-bs-toggle="modal" data-bs-target="#basicModal"
+                     onclick="details('<?php echo $Applicant['cv']?>')"
+                     class="btn btn-primary">view</button></td>
+                     <?php if($Applicant['selectStatus']==0){ ?>
+                        <td>Pending</td>
+                     <td><button class="btn btn-primary" onclick="operation(1,<?php echo $Applicant['job_apply_cid'] ?>)">Select Applicant</button></td>
+                     <td><button class="btn btn-danger" onclick="operation(2,<?php echo $Applicant['job_apply_cid'] ?>)">Reject Applicant</button></td>
+                     <?php }else if($Applicant['selectStatus']==1){
+                        ?>
+                        <td>Applicant Selected</td>
+                        <td><button class="btn btn-danger" onclick="operation(2,<?php echo $Applicant['job_apply_cid'] ?>)">Reject Applicant</button></td>
+                    <?php }else if($Applicant['selectStatus']==2){
+                        ?>
+                        <td>Rejected</td>
+                        <td><button class="btn btn-primary" onclick="operation(1,<?php echo $Applicant['job_apply_cid'] ?>)">Select Applicant</button></td>
+                        <?php 
+                        
+                    } ?>
                   </tr>
                   <?php  
                 $i=$i+1;  
                 } 
-                  
                   ?>
+                  
                 </tbody>
               </table>
               <!-- End Table with stripped rows -->
@@ -133,47 +154,20 @@
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
   <script>
-    const inp = document.getElementById("catname");
-    const sl = document.getElementById("selectCategory");
-    const addc = document.getElementById("addc");
-    const select = document.getElementById("selectc");
-
-    inp.style.visibility='hidden';
-    select.style.visibility='hidden';
-
-    const  activate = () => {
-      sl.style.visibility='hidden';
-      sl.value="";
-      inp.style.visibility='visible';
-      addc.style.visibility='hidden';
-      selectc.style.visibility='visible';   
+    const details = (data) => {
+       let cv = document.getElementById("cv");
+       cv.src=`../login/images/${data}`;
     }
 
-    const re = () => {
-      sl.style.visibility='visible';
-      inp.style.visibility='hidden';
-      inp.value="";
-      addc.style.visibility='visible';
-      selectc.style.visibility='hidden';
-
-    } 
   </script>
-  <script src="./assets/js/ckeditor.js"></script>
+ 
   <script>
-    ClassicEditor
-        .create( document.querySelector( '#editor' ) )
-        .catch( error => {
-            console.error( error );
-        } );
-  
- </script>
-  <script>
-  const changeStatus = (sts,id) => {
+  const operation = (sts,id) => {
         $.ajax({
                 type: "POST",
-                url: "./RegistrationUpdate.php",
+                url: "operation.php",
                 data:{
-                    'sts':sts,
+                    'text':sts,
                     'id': id,
                 },
                 success: function(res){
@@ -184,32 +178,3 @@
    </script>
 </body>
 </html>
-<?php  
-      if(isset($_POST['add'])){
-        if(!empty($_POST['jobname']) && !empty($_POST['editor'])){
-          
-          $jobname = $_POST['jobname'];
-          $des = $_POST['editor'];
-          $cat_name = $_POST['catname'];
-          $cat_value = $_POST['selectCategory'];
-
-
-          $insertCategory = "insert into category (cat_name) values('$cat_name')";
-          $insertJob = "insert into jobs(job_name,cat_id,Cid,jdes) values('$jobname',$cat_value,$cid,'$des')";
-
-              if(empty($_POST['selectCategory'])){
-                  $conn->query($insertCategory);
-                  $s = $conn->query("select cat_id from category where cat_name='$cat_name'");
-                  $ret = $s->fetch_assoc();
-                  $cat_id = $ret['cat_id'];
-            
-                  $conn->query("insert into jobs(job_name,cat_id,Cid,jdes) values('$jobname',$cat_id,$cid,'$des')");
-              }else{
-                   $conn->query($insertJob);
-              }
-        }else{
-          echo '<script>alert("Empty")</script>';
-        }
-        header('Location: company-posted-jobs.php');
-      }
-?>

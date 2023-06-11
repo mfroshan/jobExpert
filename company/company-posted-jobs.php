@@ -44,7 +44,7 @@
 
     <div class="pagetitle">
       <h1>Jobs Posted</h1>
-    </div><!-- End Page Title -->
+    </div>
 
     <section class="section">
       <div class="row">
@@ -63,7 +63,7 @@
                     <th scope="col">No</th>
                     <th scope="col">Job Name</th>
                     <th scope="col">Job Type</th>
-                    <th scope="col">Registration</th>
+                    <th scope="col">Application submission</th>
                     <th scope="col"></th>
                   </tr>
                 </thead>
@@ -79,12 +79,14 @@
                 ?>
                   <tr>
                     <th scope="row"><?php echo $i ?></th>
-                    <td><?php echo $jobResult['job_name'] ?></td>
+                    <td><a href="AppliedApplicants.php?id=<?php echo $jobResult['job_id']; ?>"><?php echo $jobResult['job_name'] ?></a></td>
                     <td><?php echo $jobResult['cat_name'] ?></td>
                     <?php if($jobResult['jstatus'] == 0 ){ ?>
                     <td style="color:green;">Open</td>
                     <?php }else{ ?>
-                    <td style="color: red;">Closed</td>
+                    <td style="color: red;">
+                    Closed
+                    </td>
                       <?php } ?>
                       <?php if($jobResult['jstatus'] == 1 ){ ?>
                                             <td><button 
