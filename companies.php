@@ -2,7 +2,7 @@
 <?php 
  include_once 'functions.php';
  $cid = 9; // $_GET["cid"];
- $company = getCompanyDetails($cid);
+ $company = getCompanies();
 
 ?>
 

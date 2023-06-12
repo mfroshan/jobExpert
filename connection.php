@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html class="no-js" lang="zxx">
 
@@ -80,7 +81,6 @@
   <!-- Preloader Start -->
   <?php
   include('includes/navbar.php');
-
   ?>
   <main>
     <div class="container" style="min-height:100%;height:100%;">
@@ -90,6 +90,7 @@
           <table class="table">
             <tbody>
               <?php
+              session_start();
               $user = $_SESSION['susername'];
               $res = $conn->query("select jsID from jobseeker where jusername='$user'");
               $data = $res->fetch_assoc();

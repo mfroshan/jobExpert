@@ -33,6 +33,7 @@
                                         <ul id="navigation">
                                             <li><a href="../jobExpert/index.php">Home</a></li>
                                             <li><a href="../jobExpert/job_listing.php">Find a Job </a></li>
+                                            <li><a href="../jobExpert/companies.php">Company </a></li>
                                             <!-- <li><a href="../jobExpert/about.php">About</a></li> -->
                                             <!-- <li><a href="../jobExpert/contact.php">Contact</a></li> -->
                                         </ul>

@@ -50,4 +50,15 @@ function getjobsbycategory($category){
     return $row;   
  }
 
+ function getCompanies(){
+    $conn = connect();
+    $res = $conn->query("select * from company");
+    $getCompany=[];
+    while($row = $res->fetch_assoc()){
+        $getCompany[] = $row;
+    }
+       return $getCompany;
+ }
+
+
 ?>
