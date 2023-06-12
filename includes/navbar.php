@@ -3,7 +3,7 @@
             <div class="preloader-inner position-relative">
                 <div class="preloader-circle"></div>
                 <div class="preloader-img pere-text">
-                    <img src="assets/img/logo/logo.png" alt="">
+                <span class="badge badge-secondary">JOBEXPERT</span>
                 </div>
             </div>
         </div>
@@ -20,7 +20,7 @@
                             <div class="logo">
                             <!-- <h1 class="display-4">JOBEXPERT</h1> -->
                         <h3>
-                        <span class="badge badge-secondary"><a href="index.html">JOBEXPERT</a>
+                        <span class="badge badge-secondary"><a href="index.php">JOBEXPERT</a>
                         </span> 
                         </h3>        
                     </div>  
@@ -59,17 +59,30 @@
                                         <!-- <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             Dropdown link
                                         </a> -->
+                                        
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                            <li><a class="dropdown-item" href="connection.php">Connection</a></li>
-                                            <a class="dropdown-item" href="applied.php">Applied Jobs</a>
                                             <li>
-                                            <a class="dropdown-item d-flex align-items-center" href="./login/logout.php">
-                                                <i class="bi bi-box-arrow-right"></i>
-                                                <span>Sign Out</span>
-                                            </a>
+                                                <a class="dropdown-item" href="connection.php">
+                                                <i class="bi bi-plus"></i>Connection</a>
                                             </li>
+                                            <li>
+                                            <a class="dropdown-item" href="applied.php">
+                                            <i class="bi bi-list-task"></i>Applied Jobs</a>
+                                            </li>
+                                            <li>
+                                            <a class="dropdown-item d-flex align-items-center" data-toggle="modal" data-target="#exampleModalCenter">                                       
+                                            <i class="bi bi-pen"></i>
+                                            <span>Edit profile</span>
+                                           </a>
+                                             </li>
+                                            <a class="dropdown-item d-flex align-items-center" href="./login/logout.php">
+                                            <i class="bi bi-box-arrow-right"></i><span>Sign Out</span>      
+                                            </a>
+                                           </li>
+                                           
                                         </div>
                                         </div>
+                                        
                                 <?php }else{ ?>
                                 <div class="header-btn d-none f-right d-lg-block">
                                     <a href="../../jobExpert/login/signup.php" class="btn head-btn1">Register</a>
@@ -80,6 +93,8 @@
                                     ?>
                             </div>
                         </div>
+                        <!-- Modal -->
+                        <?php include('profileedit.php'); ?>
                         <!-- Mobile Menu -->
                         <div class="col-12">
                             <div class="mobile_menu d-block d-lg-none"></div>

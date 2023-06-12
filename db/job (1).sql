@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 09, 2023 at 12:51 PM
+-- Generation Time: Jun 12, 2023 at 08:43 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -82,14 +82,6 @@ CREATE TABLE `company` (
   `status` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `company`
---
-
-INSERT INTO `company` (`Cid`, `Cusername`, `cName`, `Cnum`, `Cdes`, `cImage`, `status`) VALUES
-(9, 'kalkitech@gmail.com', 'Kalki tech', '9895459416', 'we provide           \r\n                        \r\n                        \r\n                        \r\n                        \r\n                      ', 'WhatsApp Image 2023-05-09 at 8.28.45 PM.jpeg', 0),
-(10, 'atech@gmail.com', 'Acabez tech', '9895459416', '', 'aca.jpg', 0);
-
 -- --------------------------------------------------------
 
 --
@@ -127,18 +119,9 @@ CREATE TABLE `jobs` (
   `cat_id` int(11) NOT NULL,
   `Cid` int(11) NOT NULL,
   `jdes` longtext NOT NULL,
+  `posted_t_d` date NOT NULL DEFAULT current_timestamp(),
   `jstatus` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `jobs`
---
-
-INSERT INTO `jobs` (`job_id`, `job_name`, `cat_id`, `Cid`, `jdes`, `jstatus`) VALUES
-(1, 'Junior Web Developer', 2, 9, '', 1),
-(2, 'H R', 1, 9, '', 0),
-(3, 'Technical Support', 2, 9, '24*7 Assistance', 0),
-(4, 'Qualified Technician', 4, 9, 'Certified IT Technician', 0);
 
 -- --------------------------------------------------------
 
@@ -161,7 +144,7 @@ CREATE TABLE `jobseeker` (
 --
 
 INSERT INTO `jobseeker` (`jsID`, `jusername`, `fname`, `lname`, `phonenumber`, `image`, `jobstatus`) VALUES
-(6, 'roshan@gmail.com', 'roshan', 'francis', '9895459416', 'ROSHAN PASSPORT1.jpg', 0);
+(8, 'r@gmail.com', 'roshan', 'francis', '99999999', 'ROSHAN PASSPORT1.jpg', 0);
 
 -- --------------------------------------------------------
 
@@ -171,9 +154,10 @@ INSERT INTO `jobseeker` (`jsID`, `jusername`, `fname`, `lname`, `phonenumber`, `
 
 CREATE TABLE `job_apply_c` (
   `job_apply_cid` int(11) NOT NULL,
-  `jsID` int(11) NOT NULL,
+  `job_id` int(11) NOT NULL,
   `jobm_id` int(11) NOT NULL,
-  `cv` longtext NOT NULL
+  `cv` longtext NOT NULL,
+  `selectStatus` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -184,7 +168,7 @@ CREATE TABLE `job_apply_c` (
 
 CREATE TABLE `job_apply_m` (
   `jobm_id` int(11) NOT NULL,
-  `job_id` int(11) NOT NULL
+  `jsID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -206,9 +190,7 @@ CREATE TABLE `login` (
 
 INSERT INTO `login` (`username`, `password`, `type`, `status`) VALUES
 ('admin', 'admin', 'admin', 0),
-('atech@gmail.com', '11', 'company', 0),
-('kalkitech@gmail.com', '11', 'company', 0),
-('roshan@gmail.com', '11', 'jobseeker', 0);
+('r@gmail.com', '11', 'jobseeker', 0);
 
 --
 -- Indexes for dumped tables
@@ -265,19 +247,23 @@ ALTER TABLE `jobs`
 -- Indexes for table `jobseeker`
 --
 ALTER TABLE `jobseeker`
-  ADD PRIMARY KEY (`jsID`);
+  ADD PRIMARY KEY (`jsID`),
+  ADD KEY `jusername` (`jusername`);
 
 --
 -- Indexes for table `job_apply_c`
 --
 ALTER TABLE `job_apply_c`
-  ADD PRIMARY KEY (`job_apply_cid`);
+  ADD PRIMARY KEY (`job_apply_cid`),
+  ADD KEY `job_id` (`job_id`),
+  ADD KEY `jobm_id` (`jobm_id`);
 
 --
 -- Indexes for table `job_apply_m`
 --
 ALTER TABLE `job_apply_m`
-  ADD PRIMARY KEY (`jobm_id`);
+  ADD PRIMARY KEY (`jobm_id`),
+  ADD KEY `jsID` (`jsID`);
 
 --
 -- Indexes for table `login`
@@ -329,25 +315,25 @@ ALTER TABLE `connection_child`
 -- AUTO_INCREMENT for table `jobs`
 --
 ALTER TABLE `jobs`
-  MODIFY `job_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `job_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `jobseeker`
 --
 ALTER TABLE `jobseeker`
-  MODIFY `jsID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `jsID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `job_apply_c`
 --
 ALTER TABLE `job_apply_c`
-  MODIFY `job_apply_cid` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `job_apply_cid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `job_apply_m`
 --
 ALTER TABLE `job_apply_m`
-  MODIFY `jobm_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `jobm_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Constraints for dumped tables
@@ -372,6 +358,25 @@ ALTER TABLE `connection_child`
 ALTER TABLE `jobs`
   ADD CONSTRAINT `jobs_ibfk_1` FOREIGN KEY (`Cid`) REFERENCES `company` (`Cid`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `jobs_ibfk_2` FOREIGN KEY (`cat_id`) REFERENCES `category` (`cat_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `jobseeker`
+--
+ALTER TABLE `jobseeker`
+  ADD CONSTRAINT `jobseeker_ibfk_1` FOREIGN KEY (`jusername`) REFERENCES `login` (`username`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `job_apply_c`
+--
+ALTER TABLE `job_apply_c`
+  ADD CONSTRAINT `job_apply_c_ibfk_1` FOREIGN KEY (`job_id`) REFERENCES `jobs` (`job_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `job_apply_c_ibfk_2` FOREIGN KEY (`jobm_id`) REFERENCES `job_apply_m` (`jobm_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `job_apply_m`
+--
+ALTER TABLE `job_apply_m`
+  ADD CONSTRAINT `job_apply_m_ibfk_1` FOREIGN KEY (`jsID`) REFERENCES `jobseeker` (`jsID`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

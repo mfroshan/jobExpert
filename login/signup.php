@@ -143,7 +143,7 @@ include('functions.php');
 					$password = $_POST['password'];
 					$role = $_POST['type'];
 					$image = imageConvert($_FILES['image']); 
-					echo $image;
+
 					if($role=='jobseeker'){
 						$sql = "insert into login(username,password,type,status) values('$email','$password','jobseeker',0)";
 						if($conn->query($sql)){
