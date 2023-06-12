@@ -60,7 +60,7 @@
                                         </a> -->
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                             <li><a class="dropdown-item" href="connection.php">Connection</a></li>
-                                            <a class="dropdown-item" href="#">ee</a>
+                                            <a class="dropdown-item" href="applied.php">Applied Jobs</a>
                                             <li>
                                             <a class="dropdown-item d-flex align-items-center" href="./login/logout.php">
                                                 <i class="bi bi-box-arrow-right"></i>

@@ -75,6 +75,7 @@
                             while($result = $rs->fetch_assoc()){    
                     ?>
                                         <tr>
+                                
                                             <td><?php echo $result['cName']; ?></td>
                                             <td><?php echo $result['Cnum']; ?></td>
                                             <td>
@@ -88,19 +89,22 @@
                                                 <?php } ?>
 
                                                 <?php if($result['status'] == 1 ){ ?>
-                                            <td><button 
-                                            name="a"
-                                            onclick="changeStatus(0,'c',<?php echo $result['Cid'];?>)"
-                                            class="btn btn-success">Activate</button></td>
+                                            <td>
+                                            <a href="./update.php?id=<?php echo $result['Cid']?>&sts=0&type=c">  
+                                                <button 
+                                            class="btn btn-success">Activate</button></a></td>
                                             <?php }else{ ?>
-                                                <td><button type="submit" name="d" 
-                                                onclick="changeStatus(1,'c',<?php echo $result['Cid'];?>)"
-                                                class="btn btn-danger">Deactivate</button></td>
+                                                <td>
+                                                <a href="./update.php?id=<?php echo $result['Cid']?>&sts=1&type=c"> 
+                                                <button type="submit" name="d" 
+                                                
+                                                class="btn btn-danger">Deactivate</button></a></td>
                                                 <?php } ?>
                                         </tr>
                                         <?php 
                             }
                                         ?>
+                                        
                                     </tbody>
                                 </table>
                             </div>
@@ -154,21 +158,20 @@
     
    
     <script>
-    const changeStatus = (sts,type,id) => {
-        $.ajax({
-                type: "POST",
-                url: "./UpdateStatus.php",
-                data:{
-                    'sts':sts,
-                    'type': type,
-                    'id': id,
-                },
-                success: function(res){
-                    // console.log(res);
-                    window.location.reload();
-                }
-            })
-        }
+    // const changeStatus = (sts,id) => {
+    //     $.ajax({
+    //             type: "POST",
+    //             url: "./update.php",
+    //             data:{
+    //                 'sts':sts,
+    //                 'id': id,
+    //             },
+    //             success: function(res){
+    //                 console.log(res);
+    //                 // window.location.reload();
+    //             }
+    //         })
+    //     }
     
 </script>
 
