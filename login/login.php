@@ -18,6 +18,8 @@
       if ($result['type'] == "jobseeker"){
         $_SESSION["authenticated"] = 'true';
 		$_SESSION['susername'] = $result['username'];
+		$sql=$conn->query("select jsID from jobseeker where jusername= '$email'");
+		$result =  $sql->fetch_assoc();
 		$_SESSION['jsid'] = $result['jsID'];
         header('location: ../index.php'); 
       }

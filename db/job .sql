@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 12, 2023 at 08:43 AM
--- Server version: 10.4.27-MariaDB
--- PHP Version: 8.2.0
+-- Generation Time: Jun 12, 2023 at 06:23 PM
+-- Server version: 10.5.19-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -45,30 +45,6 @@ INSERT INTO `category` (`cat_id`, `cat_name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `chat_child`
---
-
-CREATE TABLE `chat_child` (
-  `chat_child_id` int(11) NOT NULL,
-  `chat_master_id` int(11) NOT NULL,
-  `sendmsg` int(11) NOT NULL,
-  `timeStamp` time NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `chat_master`
---
-
-CREATE TABLE `chat_master` (
-  `chat_master_id` int(11) NOT NULL,
-  `jsID` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `company`
 --
 
@@ -77,10 +53,17 @@ CREATE TABLE `company` (
   `Cusername` varchar(100) NOT NULL,
   `cName` varchar(100) NOT NULL,
   `Cnum` varchar(10) NOT NULL,
-  `Cdes` longtext NOT NULL,
+  `Cdes` longtext NOT NULL DEFAULT '',
   `cImage` longtext NOT NULL,
-  `status` tinyint(1) NOT NULL
+  `status` int(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `company`
+--
+
+INSERT INTO `company` (`Cid`, `Cusername`, `cName`, `Cnum`, `Cdes`, `cImage`, `status`) VALUES
+(11, 'microredsolutions@gmail.com', 'MICRORED SOLUTIONS', '7306284429', '', 'economic certificate.jpg', 0);
 
 -- --------------------------------------------------------
 
@@ -90,9 +73,16 @@ CREATE TABLE `company` (
 
 CREATE TABLE `connection` (
   `con_id` int(11) NOT NULL,
-  `jsID` int(11) NOT NULL,
-  `status` int(11) NOT NULL
+  `jsID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `connection`
+--
+
+INSERT INTO `connection` (`con_id`, `jsID`) VALUES
+(2, 9),
+(3, 8);
 
 -- --------------------------------------------------------
 
@@ -104,8 +94,16 @@ CREATE TABLE `connection_child` (
   `con_cid` int(11) NOT NULL,
   `con_id` int(11) NOT NULL,
   `conneted_jsID` int(11) NOT NULL,
-  `status` tinyint(1) NOT NULL
+  `status` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `connection_child`
+--
+
+INSERT INTO `connection_child` (`con_cid`, `con_id`, `conneted_jsID`, `status`) VALUES
+(3, 2, 8, 1),
+(4, 3, 9, 1);
 
 -- --------------------------------------------------------
 
@@ -120,8 +118,15 @@ CREATE TABLE `jobs` (
   `Cid` int(11) NOT NULL,
   `jdes` longtext NOT NULL,
   `posted_t_d` date NOT NULL DEFAULT current_timestamp(),
-  `jstatus` tinyint(1) NOT NULL
+  `jstatus` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `jobs`
+--
+
+INSERT INTO `jobs` (`job_id`, `job_name`, `cat_id`, `Cid`, `jdes`, `posted_t_d`, `jstatus`) VALUES
+(9, 'MEAN STACK', 2, 11, '<ul><li>Knowledge in HTML,CSS,JS</li><li>Familiar in RESTAPI  </li><li>2  year    experience in similar field                                            </li></ul>', '2023-06-12', 0);
 
 -- --------------------------------------------------------
 
@@ -136,7 +141,7 @@ CREATE TABLE `jobseeker` (
   `lname` varchar(100) NOT NULL,
   `phonenumber` varchar(10) NOT NULL,
   `image` longtext NOT NULL,
-  `jobstatus` tinyint(4) NOT NULL
+  `jobstatus` tinyint(4) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -144,7 +149,8 @@ CREATE TABLE `jobseeker` (
 --
 
 INSERT INTO `jobseeker` (`jsID`, `jusername`, `fname`, `lname`, `phonenumber`, `image`, `jobstatus`) VALUES
-(8, 'r@gmail.com', 'roshan', 'francis', '99999999', 'ROSHAN PASSPORT1.jpg', 0);
+(8, 'r@gmail.com', 'roshan', 'francis', '99999999', 'ROSHAN PASSPORT1.jpg', 0),
+(9, 'riyaskh123@gmail.com', 'Muhammed', 'Riyas', '8714914848', 'ale.jpg', 0);
 
 -- --------------------------------------------------------
 
@@ -157,8 +163,15 @@ CREATE TABLE `job_apply_c` (
   `job_id` int(11) NOT NULL,
   `jobm_id` int(11) NOT NULL,
   `cv` longtext NOT NULL,
-  `selectStatus` int(1) NOT NULL
+  `selectStatus` int(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `job_apply_c`
+--
+
+INSERT INTO `job_apply_c` (`job_apply_cid`, `job_id`, `jobm_id`, `cv`, `selectStatus`) VALUES
+(7, 9, 7, 'ALTHAF P A C V.pdf', 1);
 
 -- --------------------------------------------------------
 
@@ -171,6 +184,13 @@ CREATE TABLE `job_apply_m` (
   `jsID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `job_apply_m`
+--
+
+INSERT INTO `job_apply_m` (`jobm_id`, `jsID`) VALUES
+(7, 8);
+
 -- --------------------------------------------------------
 
 --
@@ -181,7 +201,7 @@ CREATE TABLE `login` (
   `username` varchar(50) NOT NULL,
   `password` varchar(256) NOT NULL,
   `type` varchar(10) NOT NULL,
-  `status` tinyint(4) NOT NULL
+  `status` int(4) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -190,7 +210,31 @@ CREATE TABLE `login` (
 
 INSERT INTO `login` (`username`, `password`, `type`, `status`) VALUES
 ('admin', 'admin', 'admin', 0),
-('r@gmail.com', '11', 'jobseeker', 0);
+('microredsolutions@gmail.com', '11', 'company', 0),
+('r@gmail.com', '11', 'jobseeker', 0),
+('riyaskh123@gmail.com', '11', 'jobseeker', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `messages`
+--
+
+CREATE TABLE `messages` (
+  `msg_id` int(11) NOT NULL,
+  `outgoing_msg_id` varchar(100) NOT NULL,
+  `incoming_msg_id` varchar(100) NOT NULL,
+  `msg` varchar(1000) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `messages`
+--
+
+INSERT INTO `messages` (`msg_id`, `outgoing_msg_id`, `incoming_msg_id`, `msg`) VALUES
+(1, 'r@gmail.com', 'riyaskh123@gmail.com', 'hy'),
+(2, 'riyaskh123@gmail.com', 'r@gmail.com', 'how are you'),
+(3, 'r@gmail.com', 'riyaskh123@gmail.com', 'fine');
 
 --
 -- Indexes for dumped tables
@@ -201,18 +245,6 @@ INSERT INTO `login` (`username`, `password`, `type`, `status`) VALUES
 --
 ALTER TABLE `category`
   ADD PRIMARY KEY (`cat_id`);
-
---
--- Indexes for table `chat_child`
---
-ALTER TABLE `chat_child`
-  ADD PRIMARY KEY (`chat_child_id`);
-
---
--- Indexes for table `chat_master`
---
-ALTER TABLE `chat_master`
-  ADD PRIMARY KEY (`chat_master_id`);
 
 --
 -- Indexes for table `company`
@@ -272,6 +304,12 @@ ALTER TABLE `login`
   ADD PRIMARY KEY (`username`);
 
 --
+-- Indexes for table `messages`
+--
+ALTER TABLE `messages`
+  ADD PRIMARY KEY (`msg_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -282,58 +320,52 @@ ALTER TABLE `category`
   MODIFY `cat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `chat_child`
---
-ALTER TABLE `chat_child`
-  MODIFY `chat_child_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `chat_master`
---
-ALTER TABLE `chat_master`
-  MODIFY `chat_master_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `company`
 --
 ALTER TABLE `company`
-  MODIFY `Cid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `Cid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `connection`
 --
 ALTER TABLE `connection`
-  MODIFY `con_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `con_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `connection_child`
 --
 ALTER TABLE `connection_child`
-  MODIFY `con_cid` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `con_cid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `jobs`
 --
 ALTER TABLE `jobs`
-  MODIFY `job_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `job_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `jobseeker`
 --
 ALTER TABLE `jobseeker`
-  MODIFY `jsID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `jsID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `job_apply_c`
 --
 ALTER TABLE `job_apply_c`
-  MODIFY `job_apply_cid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `job_apply_cid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `job_apply_m`
 --
 ALTER TABLE `job_apply_m`
-  MODIFY `jobm_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `jobm_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `messages`
+--
+ALTER TABLE `messages`
+  MODIFY `msg_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables

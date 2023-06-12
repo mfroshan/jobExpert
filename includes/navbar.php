@@ -33,7 +33,6 @@
                                         <ul id="navigation">
                                             <li><a href="../jobExpert/index.php">Home</a></li>
                                             <li><a href="../jobExpert/job_listing.php">Find a Job </a></li>
-                                            <li><a href="../jobExpert/companies.php">Company </a></li>
                                             <!-- <li><a href="../jobExpert/about.php">About</a></li> -->
                                             <!-- <li><a href="../jobExpert/contact.php">Contact</a></li> -->
                                         </ul>
@@ -70,7 +69,7 @@
                                             <i class="bi bi-list-task"></i>Applied Jobs</a>
                                             </li>
                                             <li>
-                                            <a class="dropdown-item d-flex align-items-center" data-toggle="modal" data-target="#exampleModalCenter">                                       
+                                            <a class="dropdown-item d-flex align-items-center" data-toggle="modal" data-target="#editProfile">                                       
                                             <i class="bi bi-pen"></i>
                                             <span>Edit profile</span>
                                            </a>
