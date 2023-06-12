@@ -89,9 +89,9 @@
           <h3 class="text-primary">Connections</h3>
           <table class="table">
             <tbody>
-              <?php
-              session_start();
-              $user = $_SESSION['susername'];
+              <?php              
+              $user = $_SESSION["susername"];
+              echo "<script>alert('".$_SESSION["susername"]."')</script>";
               $res = $conn->query("select jsID from jobseeker where jusername='$user'");
               $data = $res->fetch_assoc();
               $jsID = $data['jsID'];

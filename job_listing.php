@@ -104,6 +104,7 @@
                                 <?php 
                                     include('functions.php');
                                     $getJob = getjobs();
+                                    if(!empty($getJob)){
                                     foreach( $getJob as $jobsResult ){
                                     ?>
                                 <div class="single-job-items mb-30">
@@ -139,6 +140,13 @@
                                         <?php } ?>
                                 </div>
                                 <?php } ?>
+                                <?php }else{
+                                    ?>
+                                    <div>
+                                        No jobs yet!
+                                    </div>
+                                    <?php
+                                } ?>
                             </div>
                         </section>
                     </div>
