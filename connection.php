@@ -85,7 +85,6 @@
   }
   if (isset($_POST['cancel'])) {
     $connectId = $_POST['cancel'];
-    $connectId = $_POST['cancel'];
   $conn->query("update connection_child set status=2 where con_cid = $connectId");
   $q = $conn->query("select conneted_jsID from connection_child where con_cid = $connectId");
   $res = $q->fetch_assoc();

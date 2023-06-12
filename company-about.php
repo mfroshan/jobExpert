@@ -36,7 +36,14 @@
     }
     if (isset($_POST['cancel'])) {
         $connectId = $_POST['cancel'];
-        $conn->query("update connection_child set status=2 where con_cid = $connectId");
+        $connectId = $_POST['cancel'];
+      $conn->query("update connection_child set status=2 where con_cid = $connectId");
+      $q = $conn->query("select conneted_jsID from connection_child where con_cid = $connectId");
+      $res = $q->fetch_assoc();
+      
+      $q = $conn->query("select con_cid from connection_child cc inner join connection c on cc.con_id=c.con_id where c.jsID = {$res['conneted_jsID']} and cc.conneted_jsID={$_SESSION['jsid']}");
+      $res1 = $q->fetch_assoc();
+      $conn->query("update connection_child set status=2 where con_cid = {$res1['con_cid']}");
     }
     ?>
     <div class="container">
