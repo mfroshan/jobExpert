@@ -6,7 +6,7 @@
   }
 ?>
 <?php include_once "header.php"; ?>
-<body>9
+<body>
   <div class="wrapper">
     <section class="chat-area">
       <header>
