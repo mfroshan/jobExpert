@@ -68,7 +68,7 @@
                 </div>
                 <div class="row d-flex justify-contnet-center">
                 <?php   
-                    $cat = $conn->query("select  *,count(j.job_id) as cnt from category c inner join jobs j on c.cat_id = j.cat_id group by c.cat_id");
+                    $cat = $conn->query("select  * from category group by cat_id");
                     while($catResult = $cat->fetch_assoc()){
                 ?>
                
@@ -79,7 +79,7 @@
                             </div>
                             <div class="services-cap">
                                <h5><a href="job_listing.php"><?php echo $catResult['cat_name'] ?></a></h5>
-                                <span><?php echo $catResult['cnt']?></span>
+                                <!-- <span><?php echo $catResult['cnt']?></span> -->
                             </div>
                         </div>
                     </div>
@@ -97,7 +97,46 @@
             </div>
         </div>
         
-        
+        <!---- Company --->
+        <div class="our-services section-pad-t30">
+            <div class="container">
+                <!-- Section Tittle -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="section-tittle text-center">
+                            <h2>Browse Top Companies Employed Student </h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row d-flex justify-contnet-center">
+                <?php   
+                    $cat = $conn->query("select  * from company");
+                    while($catResult = $cat->fetch_assoc()){
+                ?>
+               
+                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6">
+                        <div class="single-services text-center mb-30">
+                            <div class="services-ion">
+                                <span class="flaticon-tour"></span>
+                            </div>
+                            <div class="services-cap">
+                               <h5><a href="company-about.php?cid=<?php echo $catResult['Cid'] ?>"><?php echo $catResult['cName'] ?></a></h5>
+                            </div>
+                        </div>
+                    </div>
+                    <?php } ?>
+                </div>
+                <!-- More Btn -->
+                <!-- Section Button -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="browse-btn2 text-center mt-50">
+                            <a href="job_listing.php" class="border-btn2">Browse All Sectors</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- Featured_job_end -->
         <!-- How  Apply Process Start-->

@@ -1,9 +1,11 @@
 
 <?php 
  include_once 'functions.php';
- $cid = 9; // $_GET["cid"];
+ $cid = $_GET["cid"];
  $company = getCompanyDetails($cid);
-
+ if(isset($_POST['connection'])){
+    $connectId = $_POST['connection'];
+ }
 ?>
 
 <!DOCTYPE html>
@@ -53,17 +55,34 @@
     <h4>Company Members</h4>
     <table class="table">
         <tbody>
+            <?php
+                $connects = getconnectCompany($cid);
+                foreach($connects as $row ){
+            ?>
             <tr>
-                <td>Name</td>
+                <td><?php  echo $row['fname']." ".$row["lname"]?></td>
                 <?php if(isset($_SESSION["susername"]))
                 {
-                    echo "<td><button class='btn-primary btn-sm'>Connect</button></td>";
-                } else { 
+                    echo "<td>
+                    <form method='post'>
+                    <input type='hidden' value='".$row['jsID']."' name='connection'>
+                    <button type='submit' class='btn-primary btn-sm'>Connect</button>
+                    </form>
+                    </td>";
+                } else {
                     echo "<td><a href='login/login.php' class='btn-primary btn-sm'>Connect</button></td>";
                 }
                 ?>
                 
             </tr>
+            <?php
+                }
+            ?>
+            <?php
+            if(count($connects)==0){
+               echo "<tr><td>No Members in this company</td></tr>";
+            }
+            ?>
         </tbody>
     </table>
   </div>  

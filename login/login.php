@@ -18,7 +18,8 @@
       if ($result['type'] == "jobseeker"){
         $_SESSION["authenticated"] = 'true';
 		$_SESSION['susername'] = $result['username'];
-        header('location: ../index.php');
+		$_SESSION['jsid'] = $result['jsID'];
+        header('location: ../index.php'); 
       }
       elseif ($result['type'] == "admin"){
         $_SESSION['username'] = $result['username'];

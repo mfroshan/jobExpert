@@ -25,7 +25,9 @@ function getjobs(){
         while($row = $j->fetch_assoc()){
             $getJob[] = $row;
          }
+         if(isset($getJob)){
          return $getJob;  
+        }
              
 }
 
@@ -39,7 +41,9 @@ function getjobsbycategory($category){
     while($row = $res->fetch_assoc()){
         $getJob[] = $row;
     }
-       return $getJob;       
+    if(isset($getJob)){
+        return $getJob;  
+       }      
  }
 
 
@@ -48,6 +52,49 @@ function getjobsbycategory($category){
     $res = $conn->query("select * from company where Cid = $cid");
     $row = $res->fetch_assoc();
     return $row;   
+ }
+
+ function getconnectCompany($cid){
+    $conn = connect();
+    $j = $conn->query(
+        "select jm.jsID,js.fname,js.lname from job_apply_c jc 
+        inner join job_apply_m jm on jc.jobm_id=jm.jobm_id 
+        inner join jobs j on j.job_id = jc.job_id
+        inner join jobseeker js on jm.jsID = js.jsID
+        where j.Cid = $cid and jc.selectStatus=1");
+        $getJob=[];
+        while($row = $j->fetch_assoc()){
+            $getJob[] = $row;
+         }
+         return $getJob;  
+ }
+
+ function connectionMake($jsid,$cnid){
+    $conn = connect();
+    $j = $conn->query("select con_id from where jsID=$jsid");
+    $conid = 0;
+    if($j->num_rows > 0){
+        $res = $j->fetch_assoc();
+        $conid=$res['con_id'];
+    }
+    else{
+        $conn->query("insert into connection(jsID) value($jsid)");
+        $conid = mysqli_insert_id($conn);
+    }
+
+    $j = $conn->query("insert into connection_child(con_id,conneted_jsID,status) values($conid,$cnid,0)");
+
+    $j = $conn->query("select con_id from where jsID=$cnid");
+    $connid = 0;
+    if($j->num_rows > 0){
+        $res = $j->fetch_assoc();
+        $connid=$res['con_id'];
+    }
+    else{
+        $conn->query("insert into connection(jsID) value($cnid)");
+        $connid = mysqli_insert_id($conn);
+    }
+    $j = $conn->query("insert into connection_child(con_id,conneted_jsID,status) values($connid,$jsid,-1)");
  }
 
 ?>
