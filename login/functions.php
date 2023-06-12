@@ -16,6 +16,7 @@ function imageConvert($file){
                             echo $new_img_name;
                             if(move_uploaded_file($tmp_name,"images/".$new_img_name)){
 								return $new_img_name;
+                                
                         }else{
                             echo "Please upload an image file - jpeg, png, jpg";
 

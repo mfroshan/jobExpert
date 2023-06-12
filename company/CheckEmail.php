@@ -2,16 +2,18 @@
 include('../db/connection.php');
 
 $email = $_POST['email'];
+$old =  $_POST['oldusername'];
 
-$sql = "select * from login where username='$email'";
+$sql = "select username from login where username='$email'";
 $ret = $conn->query($sql);
 $result = $ret->fetch_assoc();
-if(($ret->num_rows) > 0){
-    if($result['username']!=$email){
-      echo 1;
-      echo $email;
+$cnt = $ret->num_rows;
+$username = $result['username'];
+if( $cnt > 0){
+    if($username == $old){
+        echo 1;
     }else{
-      echo -1;
+        echo -1;
     }
  }else{
     echo 0;

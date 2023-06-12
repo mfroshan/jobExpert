@@ -146,7 +146,7 @@
                       <label for="Email" class="col-md-4 col-lg-3 col-form-label">Email</label>
                       <div class="col-md-8 col-lg-9">
                         <input name="email" type="email" class="form-control" id="email" 
-                        onchange="check(this.value)"
+                        onchange="check('<?php echo $result['Cusername'] ?>',this.value)"
                         value="<?php echo $result['Cusername']; ?>"
                         required
                         >
@@ -215,19 +215,21 @@
   <script src="assets/js/main.js"></script>
   <script src="assets/js/jquery.min.js"></script>
   <script>
-  const check = (email) => {
+  const check = (oldusername,inputusername) => {
             $.ajax({
                 type: "POST",
                 url: "CheckEmail.php",
                 data:{
-                    'email': email,
-                },
-                success: function(res){
-                    if(res==-1){
-						        alert("Email Exist");
-						        document.getElementById("email").value="";
-					     }
-              }
+                                'oldusername':oldusername,
+                                'email': inputusername,
+                            },
+                            success: function(res){
+                                console.log(res);
+                                if(res==-1){
+                                    alert("Email Exist");
+                                    document.getElementById("email").value="";
+                                    }
+                        }
             })
 
         }

@@ -121,7 +121,7 @@
                             </div>
                             <div class="process-cap">
                                <h5>1. Search a job</h5>
-                               <p>Sorem spsum dolor sit amsectetur adipisclit, seddo eiusmod tempor incididunt ut laborea.</p>
+                               <p>Search according to category wise and apply for specified job.</p>
                             </div>
                         </div>
                     </div>
@@ -132,7 +132,7 @@
                             </div>
                             <div class="process-cap">
                                <h5>2. Apply for job</h5>
-                               <p>Sorem spsum dolor sit amsectetur adipisclit, seddo eiusmod tempor incididunt ut laborea.</p>
+                               <p>Apply using a single click and drop your cv.</p>
                             </div>
                         </div>
                     </div>
@@ -143,7 +143,7 @@
                             </div>
                             <div class="process-cap">
                                <h5>3. Get your job</h5>
-                               <p>Sorem spsum dolor sit amsectetur adipisclit, seddo eiusmod tempor incididunt ut laborea.</p>
+                               <p>Know whether your application is selected or rejected.</p>
                             </div>
                         </div>
                     </div>
@@ -194,7 +194,7 @@
         
 		<!-- Jquery Plugins, main Jquery -->	
         <script src="./assets/js/plugins.js"></script>
-        <script src="./assets/js/main.js"></script>
-        
+        <script src="./assets/js/main.js"></script>    
     </body>
 </html>
+<?php include('login/profleEdit.php'); ?>
