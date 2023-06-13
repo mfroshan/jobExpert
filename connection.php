@@ -103,6 +103,17 @@ if (isset($_POST['accept'])) {
   $res1 = $q->fetch_assoc();
   $conn->query("update connection_child set status=1 where con_cid = {$res1['con_cid']}");
 }
+
+if (isset($_POST['disconnect'])) {
+  $connectId = $_POST['disconnect'];
+  $conn->query("update connection_child set status=2 where con_cid = $connectId");
+  $q = $conn->query("select conneted_jsID from connection_child where con_cid = $connectId");
+  $res = $q->fetch_assoc();
+  
+  $q = $conn->query("select con_cid from connection_child cc inner join connection c on cc.con_id=c.con_id where c.jsID = {$res['conneted_jsID']} and cc.conneted_jsID={$_SESSION['jsid']}");
+  $res1 = $q->fetch_assoc();
+  $conn->query("update connection_child set status=2 where con_cid = {$res1['con_cid']}");
+}
   ?>
   <main>
     <div class="container" style="min-height:100%;height:100%;">
@@ -125,7 +136,6 @@ if (isset($_POST['accept'])) {
                     <h4><?php echo $catResult["fname"] . " " . $catResult["lname"] ?></h4>
                   </td>
                   <td>
-                    
                     <a href=" chat/chat.php?user_id=<?php echo $catResult['jusername'] ?>" class="text-primary"><i class='fas fa-comment' style='font-size:36px'></i></a>&nbsp;
                   </td>
                   <td>

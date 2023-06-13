@@ -107,7 +107,7 @@
 
                   <!-- Profile Edit Form -->
                   <form method="post">
-                    <div class="row mb-3">
+                    <!-- <div class="row mb-3">
                       <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
                       <div class="col-md-8 col-lg-9">
                         <img src='../../../jobExpert/login/images/<?php echo $result['cImage']; ?>' alt="Profile">
@@ -115,7 +115,7 @@
                           <input type="file" name="image"><a href="" class="btn btn-primary btn-sm" title="Upload new profile image"><i class="bi bi-upload"></i></a>
                         </div>
                       </div>
-                    </div>
+                    </div> -->
 
                     <div class="row mb-3">
                       <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Full Name</label>
@@ -256,7 +256,7 @@
                             success: function(res){
                               console.log(res);
                                 if(res==0){
-                                  window.location.reload;
+                                  window.location.reload();
                                 }else{
                                   alert("Check Previous password!");
                                 }
