@@ -81,7 +81,7 @@
   <?php
   include('includes/navbar.php');
   if(!isset($_SESSION['susername'])){
-    header('location:../');
+    header('location: index.php');
   }
   if (isset($_POST['cancel'])) {
     $connectId = $_POST['cancel'];
@@ -101,6 +101,7 @@ if (isset($_POST['accept'])) {
   
   $q = $conn->query("select con_cid from connection_child cc inner join connection c on cc.con_id=c.con_id where c.jsID = {$res['conneted_jsID']} and cc.conneted_jsID={$_SESSION['jsid']}");
   $res1 = $q->fetch_assoc();
+
   $conn->query("update connection_child set status=1 where con_cid = {$res1['con_cid']}");
 }
   ?>

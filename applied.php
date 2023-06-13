@@ -69,6 +69,8 @@
                 ");
 
                 $i=1;
+                $cnt = $jobdet->num_rows;
+                if($cnt>0){
               while($jobDetails = $jobdet->fetch_assoc()){
                 
                 
@@ -98,8 +100,17 @@
                             </div>
                             <?php 
                           $i = $i+1;
-                        } ?>
-                           
+                        } 
+                    }else{
+                        ?>
+                       <div style="display: flex;
+            justify-content: space-around;"
+                    class="p-3 mb-2">
+                       <p class="h1 text-danger">No Applied Job!</p>
+                        
+                        </div>
+                        <button class="btn"><a href="job_listing.php">Apply</a></button>
+                     <?php } ?>
                         </div>
                         
                     </div>

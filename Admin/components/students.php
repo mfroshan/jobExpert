@@ -34,6 +34,9 @@
         <?php 
         include('../includes/sidebar.php');
         include('../../db/connection.php');
+        if(!isset($_SESSION['username'])){
+            header('location: ../../index.php');
+        }
         ?>
         <!-- End of Sidebar -->
 

@@ -142,9 +142,9 @@
                                 <?php } ?>
                                 <?php }else{
                                     ?>
-                                    <div>
-                                        No jobs yet!
-                                    </div>
+                                   
+                                   <p class="h1 text-danger">No Job Yet!</p>
+                                    
                                     <?php
                                 } ?>
                             </div>
