@@ -158,41 +158,38 @@
                   </form><!-- End Profile Edit Form -->
 
                 </div>
-
+<form method="post">
                 <div class="tab-pane fade pt-3" id="profile-change-password">
                   <!-- Change Password Form -->
-                  <form>
-
                     <div class="row mb-3">
                       <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="password" type="password" class="form-control" id="currentPassword">
+                        <input name="password" type="password" class="form-control" id="currentPassword" onkeypress="return AvoidSpace(event)" required>
                       </div>
                     </div>
 
                     <div class="row mb-3">
                       <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">New Password</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="newpassword" type="password" class="form-control" id="newPassword">
+                        <input name="newpassword" type="password" class="form-control" id="newPassword"  onkeypress="return AvoidSpace(event)" required>
                       </div>
                     </div>
 
                     <div class="row mb-3">
                       <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Re-enter New Password</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="renewpassword" type="password" class="form-control" id="renewPassword">
+                        <input name="renewpassword" type="password" class="form-control" id="renewPassword"  onkeypress="return AvoidSpace(event)" required>
                       </div>
                     </div>
 
                     <div class="text-center">
-                      <button type="submit" class="btn btn-primary">Change Password</button>
+                      <button type="button" onclick="changePassword()" class="btn btn-primary">Change Password</button>
                     </div>
-                  </form>
                 </div>
               </div>
             </div>
           </div>
-
+          </form>
         </div>
       </div>
     </section>
@@ -233,6 +230,42 @@
             })
 
         }
+        function AvoidSpace(event) {
+            var k = event ? event.which : window.event.keyCode;
+            if (k == 32) return false;
+        }
+
+        const changePassword = () => {
+            
+         var cpsswd = document.getElementById("currentPassword").value;
+         var npsswd = document.getElementById("newPassword").value;
+         var rpsswd = document.getElementById("renewPassword").value;
+
+          console.log('<?php echo $result['Cusername'] ?>');
+
+          if(npsswd === rpsswd && cpsswd!=''){
+          $.ajax({
+                type: "POST",
+                url: "changepassword.php",
+                data:{
+                                'c':cpsswd,
+                                'n':npsswd,
+                                'email':'<?php echo $result['Cusername'] ?>',
+
+                            },
+                            success: function(res){
+                              console.log(res);
+                                if(res==0){
+                                  window.location.reload;
+                                }else{
+                                  alert("Check Previous password!");
+                                }
+                        }
+                 })
+             }else{
+             alert("Check Password!");
+          }
+      }
   </script>
 </body>
 </html>

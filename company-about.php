@@ -64,20 +64,7 @@
                 <h2><?php echo  $company["cName"] ?></h2><br>
                 <!-- <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</h4><br> -->
                 <p><?php echo $company['Cdes'] ?></p>
-                <br><button class="btn btn-default btn-lg">Apply For Job</button>
-            </div>
-            <div class="col-sm-4">
-                <!-- ?\<img src="login/images/<?php //echo $company['cImage']  
-                                                ?>" alt="<?php //echo $company['cImage']  
-                                                                                        ?>"> -->
-                <img src="assets/img/about/pet_care.png" alt="">
-                <i class="fa-solid fa-chart-simple"></i>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-8"></div>
-            <div class="col-sm-4">
-                <h4>Company Members</h4>
+                <h4>Selected Members</h4>
                 <table class="table">
                     <tbody>
                         <?php
@@ -131,11 +118,24 @@
                         ?>
                         <?php
                         if (count($connects) == 0) {
-                            echo "<tr><td>No Members in this company</td></tr>";
+                            echo "<tr><td>No Selected Students in this company</td></tr>";
                         }
                         ?>
                     </tbody>
                 </table>
+            </div>
+            <div class="col-sm-4">
+                <!-- ?\<img src="login/images/<?php //echo $company['cImage']  
+                                                ?>" alt="<?php //echo $company['cImage']  
+                                                                                        ?>"> -->
+                <img style="margin-top:70px;width:550px;"src="assets/img/network.jpg" alt="">
+                <i class="fa-solid fa-chart-simple"></i>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-8"></div>
+            <div class="col-sm-4">
+                
             </div>
         </div>
     </div>
