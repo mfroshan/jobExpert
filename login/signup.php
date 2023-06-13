@@ -142,7 +142,7 @@ include('functions.php');
 					$email = $_POST['email'];
 					$password = $_POST['password'];
 					$role = $_POST['type'];
-					$image = imageConvert($_FILES['image']); 
+					$image = imageConvert($_FILES['image'],'images/'); 
 
 					if($role=='jobseeker'){
 						$sql = "insert into login(username,password,type,status) values('$email','$password','jobseeker',0)";
