@@ -9,6 +9,7 @@
 <body>
   <div class="wrapper">
     <section class="chat-area">
+      
       <header>
         <?php 
           $user_id = mysqli_real_escape_string($conn, $_GET['user_id']);
@@ -19,7 +20,7 @@
             header("location: users.php");
           }
         ?>
-        <!-- <a href="../chat/" class="back-icon"><i class="fas fa-arrow-left"></i></a> -->
+        <a href="../connection.php" class="back-icon"><i class="fas fa-arrow-left"></i></a>
         <img src="../login/images/<?php echo $row['image']; ?>" alt="">
         <div class="details">
           <span><?php echo $row['fname']. " " . $row['lname'] ?></span>
