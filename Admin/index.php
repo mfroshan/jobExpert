@@ -27,10 +27,9 @@
    <?php 
      include('./includes/sidebar.php');
      include('../db/connection.php');
-     include('includes/navbar.php');
-        if(!isset($_SESSION['username'])){
-            header('location: ../index.php');
-        }
+        // if(!isset($_SESSION['username'])){
+        //     header('location: ../index.php');
+        // }
    ?>
 
         <!-- Content Wrapper -->

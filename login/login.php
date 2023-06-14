@@ -10,7 +10,7 @@
 	$email=$_POST['email'];
     $password=$_POST['password'];
 
-    $sql=$conn->query("select * from login where username= '$email' && password='$password' && status=0");
+    $sql=$conn->query("select * from login where username='$email' && password='$password' && status=0");
 	
 	$result =  $sql->fetch_assoc();
 
