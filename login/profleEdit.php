@@ -3,6 +3,7 @@
    
     if(isset($_POST['save'])){
         if(!empty($_POST['fname']) && !empty($_POST['lname'])){
+          
         $id = $result['jsID'];
         $image = $result['image'];
         $oldemail = $result['jusername'];

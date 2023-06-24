@@ -39,23 +39,26 @@
 				name="fname"
 				id="fname" 
 				required 
-				onblur="fnameCheck(this.value)"
+				onchange="fnameCheck()"
+				onkeypress="return AvoidSpace(event)"
 				/>
 				<label for="fname">First Name</label>
+				<div class="error"></div>
 			</div>
 			<div class="input">
 				<input type="lname" 
 				name="lname"
 				id="lname"
-				onblur="lnameCheck(this.value)" 
+				onchange="lnameCheck()" 
+				onkeypress="return AvoidSpace(event)"
 				required />
 				<label for="lname">Last Name</label>
 			</div>
 			<div class="input">
 				<input type="text" name="email"
 					id="email" 
-					onblur="check(this.value)"
-					pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+					onchange="check(this.value)"
+					onkeypress="return AvoidSpace(event)"
 					required />
 				<label for="email">Email</label>
 			</div>
@@ -64,6 +67,7 @@
 				name="mobile"
 				id="mobile" 
 				pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
+				onchange="CheckNum()"
 				onKeyPress="if(this.value.length==10) return false;"
 				required />
 				<label for="number">Number</label>
@@ -71,7 +75,7 @@
 			<div class="input">
 				<input type="password" name="password"
 					id="password" 
-					onblur="passCheck(this.value)"
+					onkeypress="return AvoidSpace(event)"
 					required />
 				<label for="password">
 					Password
@@ -79,8 +83,7 @@
 			</div>
 			<div class="input">
 					<select name="type" 
-					id="type"
-					onchange="typeValue(this.value)" 
+					id="type" 
 					>
 					<option value="jobseeker">Student</option>
 					<option value="company">Company</option>
@@ -110,8 +113,10 @@
 </body>
 
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="register.js"></script>
+<script src="./register.js"></script>
 <script>
+	
+
 	const check = (email) => {
             $.ajax({
                 type: "POST",
@@ -126,6 +131,17 @@
 					}
                 }
             })
+
+			const isValidEmail = email => {
+				const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+				return re.test(String(email).toLowerCase());
+			}
+
+			if(!isValidEmail(email)){
+				alert("Enter valid Email!");
+				document.getElementById("email").value="";
+				return false;
+			}
 
         }
 			
