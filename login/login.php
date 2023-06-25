@@ -98,7 +98,9 @@
 					Password
 				</label>
 			</div>
+			
 		</div>
+		<a class="forgot-password-link" href="ForgotPass.php">Forgot Password?</a>
 		<button 
 		name="login"
 		id="login"

@@ -101,6 +101,7 @@ select {
 
 
 .forgot-password-link {
+	
 	width: 140px;
 	padding: .2rem;
 	text-align: center;
@@ -112,7 +113,7 @@ select {
 }
 
 .forgot-password-link:hover{
-	background: rgba(10, 102, 195, 0.3);
+	background: #fbf9f9;
 }
 
 

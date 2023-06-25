@@ -110,7 +110,7 @@
                 </div>
                 <div class="row d-flex justify-contnet-center">
                 <?php   
-                    $cat = $conn->query("select  * from company");
+                    $cat = $conn->query("select  * from company where status=0");
                     while($catResult = $cat->fetch_assoc()){
                 ?>
                
@@ -236,4 +236,4 @@
         <script src="./assets/js/main.js"></script>    
     </body>
 </html>
-<?php include('login/profleEdit.php'); ?>
+

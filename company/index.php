@@ -65,20 +65,24 @@
               <div class="card info-card sales-card">
                 <div class="card-body">
                   <h5 class="card-title">Job Posted</span></h5>
+                  <?php 
+                  $c = $conn->query("select count(Cid) as cnt from jobs where Cid = {$result['Cid']}");
+                  $comp = $c->fetch_assoc();
+                  ?>
 
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                     <i class="bi bi-list-task"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>145</h6>
+                      <h6><?php echo $comp['cnt'];?></h6>
                     </div>
                   </div>
                 </div>
               </div>
             </div><!-- End Sales Card -->
             <!-- Customers Card -->
-            <div class="col-xxl-4 col-xl-12">
+            <!-- <div class="col-xxl-4 col-xl-12">
               <div class="card info-card customers-card">
                 <div class="card-body">
                   <h5 class="card-title">Registered</span></h5>
@@ -93,7 +97,7 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
         </div>
 
       </div>

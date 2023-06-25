@@ -11,12 +11,14 @@
         $lname = $_POST['lname'];
         $email = $_POST['email'];
         $num = $_POST['phone'];
-        //echo $_FILES['image']['name'];
+        
         $cv = '';
-        if(isset($_FILES['image'])){
-            unlink('login/images/'.$image);   
+        if($_FILES['image']['size'] != 0 ){
+
+          echo("<script>console.log('Empty: " . $_FILES['image']['name']. "');</script>");
             $cv = imageConvert($_FILES['image'],'login/images/');
-            //echo "<script>alert('".$_FILES['image']['name']."')</script>";
+            unlink('login/images/'.$image);
+            
         }
         
         $sql = "update jobseeker 
@@ -28,8 +30,11 @@
 
         $sqlup = "update login set username='$email' where username = '$oldemail'";
         $sqlimage = "update jobseeker set image = '$cv' where jsID = $id";
+
         if($cv != ''){
+          echo("<script>console.log('cv: " . $_FILES['image'] . "');</script>");
           $conn->query($sqlimage);
+          
         }
         if($email == $oldemail){
            $conn->query($sql);

@@ -89,7 +89,7 @@
 					<option value="company">Company</option>
 					</select>
 					<label for="role">
-					Type
+					Type of Account
 				</label>
 			</div>
 			<input type="hidden" name="role" id="role" />
@@ -100,6 +100,9 @@
 			 id="image"
 			 accept="image/x-png,image/gif,image/jpeg,image/jpg" 
 			 required>
+			 <label for="role">
+					Image Upload
+				</label>
 			</div>
 		</div>
 		<button type="submit" id="register" name="register">Sign up</button>

@@ -56,7 +56,6 @@
         </form>
     </div>
 </div>
-<?php include 'login/profleEdit.php' ?>
 <script src="../../jobExpert/company/assets/js/jquery.min.js"></script>
 <script>
     const check = (oldusername, inputusername) => {
@@ -78,3 +77,4 @@
         })
     }
 </script>
+<?php include 'login/profleEdit.php' ?>

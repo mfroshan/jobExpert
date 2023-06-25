@@ -137,7 +137,9 @@
                     ?>      
 
                     <p class="text-primary">Resume Submited</p>
-                        
+                    
+
+                    <button type="button" class="btn" data-toggle="modal" data-target="#updateResumeModal">update Resume</button>
                     <?php } else { ?>
                         <button type="button" class="btn" data-toggle="modal" data-target="#exampleModalCenter">
                     Apply Now
@@ -212,7 +214,47 @@
             </div>
             </div>
             </form>
-
+<!-- -->
+            <?php 
+                $getResume = "select * from job_apply_c jc inner join job_apply_m jm on jm.jobm_id = jc.jobm_id where jc.job_id = {$_GET['id']} AND jm.jsID = {$result['jsID']}";
+                $Resume = $conn->query($getResume);
+                $ResumeResult = $Resume->fetch_assoc();
+            ?>
+            <form method="post"  enctype="multipart/form-data">
+            <div class="modal fade" id="updateResumeModal" tabindex="-1" role="dialog" aria-labelledby="updateResumeModal" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="updateResumeModal">Check Your Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">   
+                <div class="form-group row">
+                        <label for="resumeR" class="col-sm-2 col-form-label">Previous Resume</label>
+                        <div class="col-sm-10">
+                        <button type="button" class="btn" onclick="toggle()">View</button>
+                        <iframe id="view-Resume" src='login/images/<?php echo $ResumeResult['cv']; ?>'></iframe>
+                        </div>
+                    </div>             
+                    <div class="form-group row">
+                        <label for="resumeR" class="col-sm-2 col-form-label">Upload New Resume</label>
+                        <div class="col-sm-10">
+                        <input type="file" id="resume" name="updated_pdf_file" accept=".pdf" required>
+                        </div> 
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" id="update" name="update">Update</button>
+                </div>
+                </div>
+            </div>
+            </div>
+           
+            </form>
+            
     </main>
     
 
@@ -252,6 +294,15 @@
 		<!-- Jquery Plugins, main Jquery -->	
         <script src="./assets/js/plugins.js"></script>
         <script src="./assets/js/main.js"></script>
+        <script>
+            const IframeView = document.getElementById("view-Resume");
+
+            IframeView.style.visibility = 'hidden';
+
+            const toggle = () => {
+                IframeView.style.visibility = 'visible';
+            }
+        </script>
     </body>
 </html>
 <?php  
@@ -278,7 +329,7 @@
 
             $insertMaster = "insert into job_apply_m (jsID) values('$jsID')";
 
-            echo("<script>console.log('cnt: " . $row_cnt . "');</script>");
+            
 
             if($row_cnt == 0){
                 $conn->query($insertMaster);
@@ -298,4 +349,18 @@
         }
         header("Location: job_details.php?id=$id");
     }   
+    if(isset($_POST['update'])){
+        $cvNew = pdfConvert($_FILES['updated_pdf_file']);
+        if(!empty($cvNew)){     
+            $conn->query("
+            update job_apply_c 
+            set cv = '$cvNew' 
+            where 
+            job_id = {$_GET['id']} 
+            AND 
+            job_apply_cid = {$ResumeResult['job_apply_cid']}
+            ");
+        }
+        header("Location: job_details.php?id={$_GET['id']}");
+    }
 ?>
