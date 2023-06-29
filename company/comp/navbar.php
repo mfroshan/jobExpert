@@ -7,6 +7,8 @@ if(isset($_SESSION['username'])){
   echo $email;
   $sql = $conn->query("select * from company where Cusername='$email'");
   $result = $sql->fetch_assoc(); 
+}else{
+  header('Location: ../../jobExpert/login/login.php');
 }
 
 ?> 

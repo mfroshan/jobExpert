@@ -65,6 +65,7 @@
                 inner join job_apply_c jc on jm.jobm_id = jc.jobm_id
                 inner join jobseeker js on jm.jsID = js.jsID
                 inner join jobs jb on jc.job_id = jb.job_id
+                inner join company cmp on cmp.Cid = jb.Cid 
                 where jm.jsID = $jsID
                 ");
 
@@ -76,23 +77,31 @@
                 
         ?>
                             <div class="job-items">
-                            <li><?php echo $i ?></li>
+                            
                                 <div class="job-tittle">
-                                    
-                                        <h4>Job Name: <?php  echo " ".$jobDetails['job_name'] ?></h4>
-                                    
+                                     <h4> <?php echo $i ?>. Job Name: <?php  echo " ".$jobDetails['job_name'] ?></h4>
                                     <ul>
                                         <li>Application Status:
-                                            
-                                        <?php if($jobDetails['selectStatus']==0){ 
-                                            ?>
+                                    <?php 
+                                            if($jobDetails['selectStatus']==0){ 
+                                    ?>
                                             <p class="text-warning">Pending</p>
                                             <?php }else if($jobDetails['selectStatus']==1){?>
                                                 <p class="text-success">selected</p>
+                                                <?php if(!empty($jobDetails['appointmentLetter'])){ ?>
+                                                        <a href='login/images/<?php echo $jobDetails['appointmentLetter'];?>' download><p class="text-primary">Get Your Offer Letter</p></a>
+                                                <?php } ?>
                                             <?php }else{ ?>
                                                 <p class="text-danger">Sorry Rejected</p>
                                         <?php } ?>
-                                              
+                                              <a href="mailto:<?php echo $jobDetails['Cusername']; ?>?subject=Enquiry about Job">
+                                              <p class="text-primary">
+                                              <i class="fa fa-envelope" aria-hidden="true">
+                                                Mail us
+                                                </i>
+                                            </p>
+                                           
+                                            </a>
                                             </li>
                                     </ul>
                                 </div>

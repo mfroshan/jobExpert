@@ -77,7 +77,7 @@
                                 <!-- Select job items start -->
                                 <div class="select-job-items2">
                                     <select name="selectC" id="selectC" onchange="change(this.value)">
-                                        <option selected></option>
+                                    <option selected></option>
                                     <?php 
                     $cat = $conn->query("select * from category");
                     while($catResult = $cat->fetch_assoc()){
@@ -102,10 +102,10 @@
                         <section class="featured-job-area">
                             <div class="container">
                                 <?php 
-                                    include('functions.php');
+                                    include('functions.php');   
                                     $getJob = getjobs();
                                     if(!empty($getJob)){
-                                    foreach( $getJob as $jobsResult ){
+                                        foreach( $getJob as $jobsResult ){
                                     ?>
                                 <div class="single-job-items mb-30">
                                     <div class="job-items">
@@ -142,11 +142,10 @@
                                 <?php } ?>
                                 <?php }else{
                                     ?>
-                                   
-                                   <p class="h1 text-danger">No Job Yet!</p>
+                                   <p class="h1 text-danger">No Job Posted Yet!</p>
                                     
                                     <?php
-                                } ?>
+                                }?>
                             </div>
                         </section>
                     </div>
@@ -228,6 +227,7 @@
                     if(this.readyState == 4 && this.status == 200){
                         let response = JSON.parse(this.responseText);
                         let out = "";
+                        
                         for(let data of response){
                             out += `
                             <div class="single-job-items mb-30">
@@ -260,11 +260,20 @@
                            
                             `;
                         }
+                        if(response != ''){
                         container.innerHTML = out;
+                        }else{
+                            container.innerHTML = `
+                            <div class="single-job-items mb-30">
+                                    <div class="job-items">
+                                    <p class="h1 text-danger">No Job Posted Yet!</p>
+                                    </div>
+                            </div>
+                                    `
+                        }
                     };
                  }
  
-
             http.open('POST', "script.php", true);
             http.setRequestHeader("content-type", "application/x-www-form-urlencoded");
             http.send("category="+categoryid);
